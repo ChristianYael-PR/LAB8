@@ -1,6 +1,6 @@
-#Scramble String Checker
+# Scramble String Checker
 
-##Descripción del Problema
+## Descripción del Problema
 
 Dadas dos cadenas `s1` y `s2` de la misma longitud, el objetivo es determinar si `s2` puede obtenerse aplicando un proceso de mezcla aleatoria sobre `s1`. Este proceso se define recursivamente:
 
@@ -10,7 +10,7 @@ Dadas dos cadenas `s1` y `s2` de la misma longitud, el objetivo es determinar si
    - Se decide aleatoriamente si se intercambian las mitades o se dejan en el mismo orden.
    - Se aplica el mismo procedimiento recursivamente sobre cada mitad.
 
-###Ejemplos
+### Ejemplos
 
 | Entrada             | Salida | Explicación                                                                 |
 |---------------------|--------|-----------------------------------------------------------------------------|
@@ -20,7 +20,7 @@ Dadas dos cadenas `s1` y `s2` de la misma longitud, el objetivo es determinar si
 
 ---
 
-##Enfoque de la Solución
+## Enfoque de la Solución
 
 Se utiliza **recursión con memoización** para evitar recalcular subproblemas. El algoritmo considera todas las divisiones posibles de la cadena y prueba dos escenarios para cada una:
 
@@ -31,7 +31,7 @@ Además, se realiza una **poda temprana** descartando casos donde las letras de 
 
 ---
 
-##Lógica General del Algoritmo
+## Lógica General del Algoritmo
 
 - Si `s1 == s2`, se retorna `True`.
 - Si `sorted(s1) != sorted(s2)`, se retorna `False` (las letras no coinciden).
@@ -43,7 +43,7 @@ Además, se realiza una **poda temprana** descartando casos donde las letras de 
 
 ---
 
-##Complejidad del Algoritmo
+## Complejidad del Algoritmo
 
 - **Tiempo**: `O(n^4)` en el peor de los casos, debido a las posibles divisiones y combinaciones de subcadenas.
 - **Espacio**: `O(n^3)` por la caché de memoización que almacena resultados intermedios.
@@ -52,7 +52,7 @@ Además, se realiza una **poda temprana** descartando casos donde las letras de 
 
 ---
 
-##Conclusiones
+## Conclusiones
 
 - El algoritmo propuesto es **correcto y eficiente** dentro de los límites del problema.
 - La **memoización** evita el cómputo redundante.
