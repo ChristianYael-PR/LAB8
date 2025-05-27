@@ -1,4 +1,4 @@
-# Scramble String Checker
+# Comprobador de cadenas desordenadas
 
 ## Descripción del Problema
 
