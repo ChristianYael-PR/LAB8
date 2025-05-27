@@ -1,67 +1,60 @@
-cramble String CheckerDescripción del Problema
-Dadas dos cadenas s1 y s2 de la misma longitud, el objetivo es determinar si s2 puede obtenerse aplicando un proceso de mezcla aleatoria sobre s1. Este proceso se define recursivamente:
+#Scramble String Checker
 
-Si la longitud de la cadena es 1, se detiene.
+##Descripción del Problema
 
-Si es mayor a 1:
+Dadas dos cadenas `s1` y `s2` de la misma longitud, el objetivo es determinar si `s2` puede obtenerse aplicando un proceso de mezcla aleatoria sobre `s1`. Este proceso se define recursivamente:
 
-Se divide la cadena en dos partes no vacías.
+1. Si la longitud de la cadena es 1, se detiene.
+2. Si es mayor a 1:
+   - Se divide la cadena en dos partes no vacías.
+   - Se decide aleatoriamente si se intercambian las mitades o se dejan en el mismo orden.
+   - Se aplica el mismo procedimiento recursivamente sobre cada mitad.
 
-Se decide aleatoriamente si se intercambian las mitades o se dejan en el mismo orden.
+###Ejemplos
 
-Se aplica el mismo procedimiento recursivamente sobre cada mitad.
+| Entrada             | Salida | Explicación                                                                 |
+|---------------------|--------|-----------------------------------------------------------------------------|
+| s1 = `"great"`      | True   | Se puede mezclar hasta formar `"rgeat"`                                    |
+| s1 = `"abcde"`      | False  | No hay forma de mezclar `s1` para obtener `"caebd"`                         |
+| s1 = `"a"`          | True   | Una sola letra ya cumple la condición                                      |
 
-🧪 Ejemplos
-Entrada: s1 = "great", s2 = "rgeat" → Salida: True
+---
 
-Entrada: s1 = "abcde", s2 = "caebd" → Salida: False
+##Enfoque de la Solución
 
-Entrada: s1 = "a", s2 = "a" → Salida: True
+Se utiliza **recursión con memoización** para evitar recalcular subproblemas. El algoritmo considera todas las divisiones posibles de la cadena y prueba dos escenarios para cada una:
 
-✅ Enfoque de la Solución
-La solución se basa en una técnica de recursión con memoización para optimizar el rendimiento al evitar el recalculo de subproblemas repetidos.
+- **Sin intercambio**: las dos mitades deben coincidir directamente.
+- **Con intercambio**: se comparan las mitades invertidas.
 
-🧠 Lógica de la Solución
-Si ambas cadenas son iguales, se considera una correspondencia válida.
+Además, se realiza una **poda temprana** descartando casos donde las letras de ambas cadenas no coinciden (usando ordenamiento).
 
-Si el contenido (caracteres y frecuencia) de ambas cadenas no coincide, se descarta inmediatamente.
+---
 
-Se prueban todas las posibles divisiones y se evalúa si:
+##Lógica General del Algoritmo
 
-Las partes coinciden sin intercambiar (sin swap).
+- Si `s1 == s2`, se retorna `True`.
+- Si `sorted(s1) != sorted(s2)`, se retorna `False` (las letras no coinciden).
+- Para cada índice de división `i` entre `1` y `n - 1`:
+  - Se evalúa:
+    - `s1[:i]` con `s2[:i]` **y** `s1[i:]` con `s2[i:]` (sin swap).
+    - `s1[:i]` con `s2[-i:]` **y** `s1[i:]` con `s2[:-i]` (con swap).
+- Si alguna combinación resulta válida, se retorna `True`.
 
-Las partes coinciden con intercambio (con swap).
+---
 
-Se considera que s2 es una mezcla válida de s1 si al menos una de estas combinaciones es verdadera.
+##Complejidad del Algoritmo
 
-⏱️ Complejidad del Algoritmo
-Tiempo: 
-𝑂
-(
-𝑛
-4
-)
-O(n 
-4
- )
-Debido a las posibles particiones y combinaciones de subcadenas que deben ser evaluadas.
+- **Tiempo**: `O(n^4)` en el peor de los casos, debido a las posibles divisiones y combinaciones de subcadenas.
+- **Espacio**: `O(n^3)` por la caché de memoización que almacena resultados intermedios.
 
-Espacio: 
-𝑂
-(
-𝑛
-3
-)
-O(n 
-3
- )
-Se utiliza almacenamiento en caché para las llamadas recursivas, evitando trabajo repetido.
+>El algoritmo es eficiente y suficiente para cadenas de hasta 30 caracteres, como lo exigen las restricciones del problema.
 
-Nota: El algoritmo es eficiente para los tamaños de entrada permitidos por las restricciones del problema (longitudes hasta 30 caracteres).
+---
 
-📌 Conclusiones
-La solución es eficiente y correcta para cadenas de hasta 30 caracteres.
+##Conclusiones
 
-Se implementa memoización para garantizar que cada subproblema se resuelva una sola vez.
-
-Se utiliza una poda temprana mediante comparación de caracteres para reducir el espacio de búsqueda.
+- El algoritmo propuesto es **correcto y eficiente** dentro de los límites del problema.
+- La **memoización** evita el cómputo redundante.
+- La **poda temprana** mejora el rendimiento descartando combinaciones imposibles desde el inicio.
+- Este enfoque permite validar si una cadena es una mezcla válida de otra, simulando el proceso descrito en el problema.
